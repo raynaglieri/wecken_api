@@ -29,16 +29,3 @@ workflows:
       - build:
           requires:
             - unit-test
-      - deploy-test:
-          requires:
-            - build
-   nightly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - master
-    jobs:
-      - deploy-prod
