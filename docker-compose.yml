@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  api: 
+    image: "${DOCKER_ORGANIZATION}/${DOCKER_APP}:${CIRCLE_SHA1}"
+    command: gunicorn -b 0.0.0.0 -w 4 -k uvicorn.workers.UvicornH11Worker app.main:app
+    ports:
+      - target: "${API_PORT}"
+        published: "${API_PORT}"
+    env_file: .env 
