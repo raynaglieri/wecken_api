@@ -1,4 +1,5 @@
-# :sunrise_over_mountains: wecken
+
+# :sunrise_over_mountains: wecken [![CircleCI](https://circleci.com/gh/raynaglieri/wecken_api.svg?style=svg)](https://circleci.com/gh/raynaglieri/wecken_api)
 
 ## I. :books: About
 
