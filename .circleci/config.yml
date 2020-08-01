@@ -1,0 +1,44 @@
+version: 2.1
+jobs:
+  unit-test:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - checkout
+      - run: |
+          pip install -U pytest
+          mkdir test-results
+          pytest ./app/unit_test --junitxml=test-results/junit.xml
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results    
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: |
+          echo "$DOCKER_HUB_ACCESS_TOKEN" | docker login --username $DOCKER_HUB_USERNAME --password-stdin
+          docker build -t $DOCKER_ORGANIZATION/$DOCKER_APP:$CIRCLE_SHA1 ./app
+          docker push $DOCKER_ORGANIZATION/$DOCKER_APP:$CIRCLE_SHA1  
+workflows:
+   version: 2
+   commit:
+    jobs:
+      - unit-test
+      - build:
+          requires:
+            - unit-test
+      - deploy-test:
+          requires:
+            - build
+   nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - deploy-prod
