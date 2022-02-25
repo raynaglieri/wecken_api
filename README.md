@@ -18,7 +18,7 @@ git clone <https://github.com/raynaglieri/wecken_api.git>
 ### 3. Install **virtualenv**
 
 ```zsh
-sudo pip3 install virtualenv
+sudo pip install virtualenv
 ```
 
 ### 4. Create a new virtual environment and activate it
@@ -38,7 +38,7 @@ Your prompt will change to indicate that you are now operating within the virtua
 ### 5. Install dependencies within your new virtual environment using the provided *requrements.txt*
 
 ```zsh
-pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+pip install --upgrade pip && pip install --no-cache-dir -r app/requirements.txt
 ```
 
 ### 6. Install MongoDB
@@ -58,3 +58,11 @@ If you are using another OS please visit the [offical MongoDB Documentation](htt
 ```zsh
 uvicorn --reload  app.main:app
 ```
+
+### 7. View the wecken API
+Open your preferred web-browser and enter:
+
+```zsh
+http://localhost:8000/docs
+```
+
